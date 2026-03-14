@@ -63,7 +63,7 @@ const assignments = [
           <div className="absolute inset-0 bg-emerald-300 rounded-[3rem] opacity-70 animate-spin-reverse"></div>
           <div className="absolute inset-3 md:inset-4 rounded-[2.5rem] overflow-hidden border-[6px] border-white shadow-xl bg-white z-10 group">
             <Image
-              src="/avatar.jpg" 
+              src="/favicon.jpg" 
               alt="Ảnh đại diện của Thành"
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -257,7 +257,7 @@ const assignments = [
               </a>
 
               {/* Lựa chọn 3: GitHub */}
-              <a href="https://github.com/Lily-Lynh" target="_blank" className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border-2 border-slate-100 hover:border-slate-400 transition-all group">
+              <a href="https://github.com/Thanhdt247/my-portfolio-uet" target="_blank" className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border-2 border-slate-100 hover:border-slate-400 transition-all group">
                 <span className="text-2xl">💻</span>
                 <span className="font-bold text-slate-900">GitHub (Source)</span>
               </a>
