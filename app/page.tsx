@@ -246,7 +246,7 @@ const assignments = [
                 <span className="text-2xl">📧</span>
                 <div className="flex flex-col">
                   <span className="font-bold text-emerald-900">Email (Personal)</span>
-                  <span className="text-xs text-emerald-600/70">nguyenthanhcv247@vnu.edu.vn</span>
+                  <span className="text-xs text-emerald-600/70">nguyenthanhcv247@gmail.com</span>
                 </div>
               </a>
 
