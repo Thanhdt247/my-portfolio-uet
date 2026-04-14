@@ -7,7 +7,8 @@ const LESSON_CONFIG = {
   number: "02",
   title: "Tìm kiếm và đánh giá thông tin học thuật",
   emoji: "🔬",
-  pdfFile: "Thuchanh_NguyenVanThanh_2.pdf",
+  pdfFile: "Lesson2/Thuchanh_NguyenVanThanh_2.pdf",
+  downloadFile: "Thuchanh_NguyenVanThanh_2.pdf"
 };
 
 // Định nghĩa Type cho TypeScript khỏi báo lỗi khi build Vercel
@@ -177,7 +178,7 @@ export default function GenericLessonPage() {
             
             <a 
               href={`/${LESSON_CONFIG.pdfFile}`} 
-              download={LESSON_CONFIG.pdfFile}
+              download={LESSON_CONFIG.downloadFile}
               className="w-full flex justify-center items-center gap-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-3 rounded-xl transition-colors border border-emerald-200 group"
             >
               <svg className="w-5 h-5 transition-transform group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

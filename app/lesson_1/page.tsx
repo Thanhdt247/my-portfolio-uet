@@ -79,7 +79,7 @@ export default function InteractiveLesson() {
             
             {/* Thuộc tính download sẽ tải file thay vì mở sang tab mới */}
             <a 
-              href="/Thuchanh_NguyenVanThanh.pdf" 
+              href="Lesson1/Thuchanh_NguyenVanThanh.pdf" 
               download="Thuchanh_NguyenVanThanh.pdf"
               className="w-full flex justify-center items-center gap-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-3 rounded-xl transition-colors border border-emerald-200 group"
             >
