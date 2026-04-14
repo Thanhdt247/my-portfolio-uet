@@ -10,7 +10,7 @@ const LESSON_CONFIG = {
   pdfFile: "Thuchanh_NguyenVanThanh_3.pdf",
 };
 
-// Định nghĩa Type cho TypeScript khỏi báo lỗi
+// Định nghĩa Type cho TypeScript khỏi báo lỗi khi build Vercel
 type Step = {
   id: number;
   title: string;
@@ -151,7 +151,6 @@ export default function GenericLessonPage() {
                 📄
               </div>
               <div>
-                {/* Đã sửa font ở đây */}
                 <h4 className="font-bold text-teal-900">File báo cáo (.pdf)</h4>
                 <p className="text-xs font-medium text-teal-600">Dành cho giảng viên chấm điểm</p>
               </div>
@@ -160,10 +159,8 @@ export default function GenericLessonPage() {
             <a 
               href={`/${LESSON_CONFIG.pdfFile}`} 
               download={LESSON_CONFIG.pdfFile}
-              /* Đã xóa class text-sm gây nhỏ nút ở đây */
               className="w-full flex justify-center items-center gap-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-3 rounded-xl transition-colors border border-emerald-200 group"
             >
-              {/* Đã đưa icon về lại w-5 h-5 */}
               <svg className="w-5 h-5 transition-transform group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -194,9 +191,10 @@ export default function GenericLessonPage() {
                 <span className="text-lg">📄</span> Chi tiết phân tích
               </h3>
               
+              {/* Đã thêm || [] để fix lỗi TypeScript cho Vercel */}
               {steps[currentStep].extraType === 'text' && (
                 <div className="space-y-4 bg-white p-6 rounded-2xl border-2 border-white shadow-sm">
-                  {steps[currentStep].content?.map((para, idx) => (
+                  {(steps[currentStep].content || []).map((para, idx) => (
                     <p key={idx} className="text-teal-800 text-base font-medium leading-relaxed">
                       {para}
                     </p>
@@ -204,9 +202,10 @@ export default function GenericLessonPage() {
                 </div>
               )}
 
+              {/* Đã thêm || [] để fix lỗi TypeScript cho Vercel */}
               {steps[currentStep].extraType === 'list' && (
                 <ul className="space-y-3 bg-white p-6 rounded-2xl border-2 border-white shadow-sm list-none">
-                  {steps[currentStep].content?.map((item, idx) => (
+                  {(steps[currentStep].content || []).map((item, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-teal-800 font-medium text-base leading-relaxed">
                       <span className="text-emerald-500 font-bold mt-0.5">✓</span>
                       {item}
@@ -215,21 +214,22 @@ export default function GenericLessonPage() {
                 </ul>
               )}
 
+              {/* Đã thêm || [] để fix lỗi TypeScript cho Vercel */}
               {steps[currentStep].extraType === 'table' && (
                 <div className="overflow-x-auto rounded-xl border border-emerald-100 bg-white shadow-sm">
                   <table className="w-full text-left border-collapse">
                     <thead className="bg-emerald-600 text-white">
                       <tr>
-                        {steps[currentStep].tableHeaders?.map((head, idx) => (
+                        {(steps[currentStep].tableHeaders || []).map((head, idx) => (
                           <th key={idx} className="p-3 font-bold text-sm tracking-wider whitespace-nowrap border-b-2 border-emerald-700">{head}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-emerald-50">
-                      {steps[currentStep].tableRows?.map((row, rowIdx) => (
+                      {(steps[currentStep].tableRows || []).map((row, rowIdx) => (
                         <tr key={rowIdx} className="hover:bg-emerald-50/50 transition-colors">
                           {row.map((cell, cellIdx) => (
-                            <td key={cellIdx} className={`p-3 text-sm text-teal-800 ${cellIdx === 0 ? 'font-bold bg-emerald-50/30' : 'font-medium'}`}>
+                            <td key={cellIdx} className={`p-3 text-sm text-teal-800 ${cellIdx === 0 ? 'font-bold bg-emerald-50/30 w-1/4' : 'font-medium'}`}>
                               {cell}
                             </td>
                           ))}
