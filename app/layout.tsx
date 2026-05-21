@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next"; // 1. Thêm dòng import này
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,7 +13,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Sửa lại tiêu đề tab trình duyệt cho chuyên nghiệp
 export const metadata: Metadata = {
   title: "Digital Portfolio | Thành",
   description: "Portfolio môn Nhập môn Công nghệ số - VNU UET",
@@ -30,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <SpeedInsights /> {/* 2. Chèn component vào đây (ngay trước thẻ đóng body) */}
       </body>
     </html>
   );
