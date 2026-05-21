@@ -78,7 +78,7 @@ export default function HomePage() {
             </span>
           </h1>
           <p className="text-lg text-teal-800/80 mb-8 leading-relaxed font-medium">
-            Mình hiện đang là sinh viên khoa <strong>Khoa học Dữ liệu (CN20) tại VNU-UET</strong>. 
+            Mình hiện đang là sinh viên khoa <strong>Điện tử viễn thông (CN9) tại VNU-UET</strong>. 
             Đây là không gian số nơi mình lưu trữ các kết quả thực hành từ môn Nhập môn Công nghệ số, 
             đồng thời chia sẻ một chút về hành trình học tập và sở thích vọc vạch công nghệ.
           </p>
