@@ -1,11 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import FallingLeaves from '../components/FallingLeaves'; // Điều chỉnh đường dẫn Import nếu bạn đặt trong thư mục components
 
 export default function HomePage() {
-const [isOpen, setIsOpen] = useState(false);
-const assignments = [
+  const [isOpen, setIsOpen] = useState(false);
+  const assignments = [
     { id: 1, title: "Máy tính & Thiết bị ngoại vi", desc: "Thao tác tệp tin và quản lý hệ thống máy tính." },
     { id: 2, title: "Khai thác dữ liệu & Thông tin", desc: "Kỹ năng tìm kiếm và đánh giá nguồn tin học thuật." },
     { id: 3, title: "Tổng quan về Trí tuệ nhân tạo", desc: "Ứng dụng AI và kỹ năng Prompt Engineering." },
@@ -14,45 +15,78 @@ const assignments = [
     { id: 6, title: "An toàn & Liêm chính học thuật", desc: "Bảo mật thông tin và đạo đức trong môi trường số." },
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target); 
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-100 via-teal-50 to-emerald-100 text-teal-950 font-sans pt-16 selection:bg-emerald-300 selection:text-teal-900">
+    <div className="relative min-h-screen bg-gradient-to-br from-sky-100 via-teal-50 to-emerald-100 text-teal-950 font-sans pt-16 selection:bg-emerald-300 selection:text-teal-900">
       
+      {/* Hiệu ứng lá rơi nền */}
+      <FallingLeaves />
+
       <nav className="fixed top-0 left-0 right-0 bg-white/70 backdrop-blur-md shadow-sm z-50 border-b-2 border-emerald-100">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="font-extrabold text-2xl text-emerald-600 tracking-tight flex items-center gap-2">
             <span className="text-3xl">🍃</span> Portfolio.
           </div>
           
-          {/* MENU ĐÃ CẬP NHẬT TỔNG KẾT */}
+          {/* MENU */}
           <div className="hidden md:flex gap-8 text-sm font-bold text-teal-700 uppercase tracking-wider">
             <a href="#trang-chu" className="hover:text-emerald-500 hover:-translate-y-0.5 transition-transform">Trang chủ</a>
             <a href="#kinh-nghiem" className="hover:text-emerald-500 hover:-translate-y-0.5 transition-transform">Kinh nghiệm</a>
             <a href="#bai-tap" className="hover:text-emerald-500 hover:-translate-y-0.5 transition-transform">Bài tập</a>
-            
-            {/* Mục Tổng kết mới đây Thành ơi */}
             <a href="#tong-ket" className="hover:text-emerald-500 hover:-translate-y-0.5 transition-transform text-emerald-600 font-black">Tổng kết</a> 
-            
             <a href="#lien-he" className="hover:text-emerald-500 hover:-translate-y-0.5 transition-transform">Liên hệ</a>
           </div>
         </div>
       </nav>
 
-      <section id="trang-chu" className="max-w-6xl mx-auto px-6 py-24 flex flex-col-reverse md:flex-row items-center gap-12">
+      <section id="trang-chu" className="relative z-10 max-w-6xl mx-auto px-6 py-24 flex flex-col-reverse md:flex-row items-center gap-12">
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-black text-teal-900 mb-6 leading-tight drop-shadow-sm">
-            Chào thầy cô và các bạn, <br/>
-            <span className="text-emerald-600 drop-shadow-md">mình là Thành ✌️</span>
+          <h1 className="group cursor-default text-4xl md:text-5xl font-black text-teal-900 mb-6 leading-tight drop-shadow-sm">
+            {/* Dòng 1: Nảy lên nhẹ khi hover */}
+            <span className="inline-block transition-all duration-300 group-hover:-translate-y-1 group-hover:text-teal-700">
+              Chào thầy cô và các bạn,
+            </span>
+            <br/>
+            {/* Dòng 2: Đổi màu Gradient, bừng sáng và phóng to nhẹ */}
+            <span className="inline-block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 transition-all duration-500 group-hover:from-emerald-400 group-hover:to-cyan-400 group-hover:drop-shadow-[0_0_20px_rgba(52,211,153,0.8)] group-hover:scale-105 origin-left">
+              mình là Thành
+            </span>
+            {/* Icon: Vẫy tay */}
+            <span className="inline-block ml-3 transition-transform duration-300 origin-bottom group-hover:rotate-12 group-hover:scale-125 text-emerald-600">
+              ✌️
+            </span>
           </h1>
           <p className="text-lg text-teal-800/80 mb-8 leading-relaxed font-medium">
-            Mình hiện đang là sinh viên khoa <strong>Điện tử viễn thông tại VNU-UET</strong>. 
+            Mình hiện đang là sinh viên khoa <strong>Khoa học Dữ liệu (CN20) tại VNU-UET</strong>. 
             Đây là không gian số nơi mình lưu trữ các kết quả thực hành từ môn Nhập môn Công nghệ số, 
             đồng thời chia sẻ một chút về hành trình học tập và sở thích vọc vạch công nghệ.
           </p>
           <div className="flex justify-center md:justify-start gap-4">
-            <a href="#bai-tap" className="bg-emerald-500 text-white px-8 py-3 rounded-2xl font-bold hover:bg-emerald-400 border-b-4 border-emerald-700 hover:border-emerald-500 active:translate-y-1 active:border-b-0 transition-all">
+            <a href="#bai-tap" className="bg-emerald-500 text-white px-8 py-3 rounded-2xl font-bold hover:bg-emerald-400 border-b-4 border-emerald-700 hover:border-emerald-500 active:translate-y-1 active:border-b-0 transition-all shadow-md">
               Xem Bài Tập 🚀
             </a>
-            <a href="#lien-he" className="bg-white text-teal-700 px-8 py-3 rounded-2xl font-bold hover:bg-sky-50 border-b-4 border-teal-200 hover:border-sky-200 active:translate-y-1 active:border-b-0 transition-all">
+            <a href="#lien-he" className="bg-white text-teal-700 px-8 py-3 rounded-2xl font-bold hover:bg-sky-50 border-b-4 border-teal-200 hover:border-sky-200 active:translate-y-1 active:border-b-0 transition-all shadow-md">
               Kết nối
             </a>
           </div>
@@ -73,7 +107,7 @@ const assignments = [
         </div>
       </section>
 
-      <section id="kinh-nghiem" className="bg-white/40 backdrop-blur-sm py-24 border-y-2 border-emerald-100">
+      <section id="kinh-nghiem" className="reveal relative z-10 bg-white/40 backdrop-blur-sm py-24 border-y-2 border-emerald-100">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-black mb-12 text-center text-teal-900 drop-shadow-sm">Kinh nghiệm & Kỹ năng</h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -97,18 +131,18 @@ const assignments = [
         </div>
       </section>
 
-      <section id="bai-tap" className="max-w-6xl mx-auto py-24 px-6">
-        <div className="text-center mb-16">
+      <section id="bai-tap" className="relative z-10 max-w-6xl mx-auto py-24 px-6">
+        <div className="reveal text-center mb-16">
           <h2 className="text-3xl font-black text-teal-900 mb-4 drop-shadow-sm">Danh sách Bài tập</h2>
           <p className="text-teal-700 font-medium">Các sản phẩm thực hành được tổng hợp qua từng chương học</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {assignments.map((item) => (
+          {assignments.map((item, index) => (
             <Link 
               key={item.id} 
               href={`/lesson_${item.id}`}
-              className="group bg-white p-6 rounded-3xl shadow-sm border-2 border-emerald-100 hover:border-sky-400 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
+              className={`reveal reveal-delay-${(index % 3 + 1) * 100} group bg-white p-6 rounded-3xl shadow-sm border-2 border-emerald-100 hover:border-sky-400 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden`}
             >
               <div className="absolute -right-8 -top-8 w-24 h-24 bg-sky-100 rounded-full group-hover:scale-150 transition-transform duration-500 -z-10"></div>
               
@@ -127,7 +161,8 @@ const assignments = [
           ))}
         </div>
       </section>
-      <section id="tong-ket" className="bg-emerald-50/50 py-24 border-t-2 border-emerald-100 px-6">
+      
+      <section id="tong-ket" className="reveal relative z-10 bg-emerald-50/50 py-24 border-t-2 border-emerald-100 px-6">
         <div className="max-w-4xl mx-auto">
           
           <div className="text-center mb-16">
@@ -205,7 +240,8 @@ const assignments = [
           </div>
         </div>
       </section>
-      <section id="lien-he" className="bg-teal-900 text-emerald-50 py-24 border-t-8 border-emerald-500">
+
+      <section id="lien-he" className="reveal relative z-10 bg-teal-900 text-emerald-50 py-24 border-t-8 border-emerald-500">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-black mb-6 text-white drop-shadow-md">Giữ liên lạc nhé! 📬</h2>
           <p className="text-teal-100/80 mb-10 text-lg font-medium">
@@ -230,9 +266,10 @@ const assignments = [
         </div>
       </section>
 
-      <footer className="bg-teal-950 py-8 text-center text-teal-600 font-medium text-sm">
+      <footer className="relative z-10 bg-teal-950 py-8 text-center text-teal-600 font-medium text-sm">
         © 2026 - Digital Portfolio by Thành (Lynx).
       </footer>
+      
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
           <div className="absolute inset-0 bg-teal-950/60 backdrop-blur-md" onClick={() => setIsOpen(false)}></div>
@@ -241,7 +278,6 @@ const assignments = [
             <h3 className="text-2xl font-black text-teal-900 mb-6 text-center">Let's Connect! 🤝</h3>
             
             <div className="space-y-4">
-              {/* Lựa chọn 1: Email */}
               <a href="mailto:thanh.uet@vnu.edu.vn" className="flex items-center gap-4 p-4 bg-emerald-50 rounded-2xl border-2 border-emerald-100 hover:border-emerald-400 transition-all group">
                 <span className="text-2xl">📧</span>
                 <div className="flex flex-col">
@@ -250,13 +286,11 @@ const assignments = [
                 </div>
               </a>
 
-              {/* Lựa chọn 2: Facebook */}
               <a href="https://www.facebook.com/Lynh.NguyenThanh" target="_blank" className="flex items-center gap-4 p-4 bg-sky-50 rounded-2xl border-2 border-sky-100 hover:border-sky-400 transition-all group">
                 <span className="text-2xl">👤</span>
                 <span className="font-bold text-sky-900">Facebook Profile</span>
               </a>
 
-              {/* Lựa chọn 3: GitHub */}
               <a href="https://github.com/Thanhdt247/my-portfolio-uet" target="_blank" className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border-2 border-slate-100 hover:border-slate-400 transition-all group">
                 <span className="text-2xl">💻</span>
                 <span className="font-bold text-slate-900">GitHub (Source)</span>

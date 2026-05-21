@@ -17,3 +17,53 @@
 .animate-spin-reverse {
   animation: spin-reverse 10s linear infinite;
 }
+
+/* 1. Hiệu ứng rơi từ trên xuống dưới */
+@keyframes fall-down {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  100% { top: 110%; opacity: 0; }
+}
+
+/* 2. Hiệu ứng gió thổi đung đưa trái phải và xoay */
+@keyframes sway {
+  0% { 
+    transform: translateX(0px) rotate(0deg); 
+  }
+  50% { 
+    /* Lướt sang một bên và xoay */
+    transform: translateX(var(--sway-x)) rotate(var(--rot-x)); 
+  }
+  100% { 
+    /* Lướt ngược lại một chút và xoay ngược lại */
+    transform: translateX(calc(var(--sway-x) * -0.5)) rotate(calc(var(--rot-x) * -0.5)); 
+  }
+}
+
+/* Gộp 2 hiệu ứng lại với nhau */
+.leaf-fall {
+  /* Rơi xuống dùng linear để tốc độ đều, đung đưa dùng ease-in-out và alternate để mượt như con lắc */
+  animation: 
+    fall-down var(--fall-duration) linear infinite,
+    sway var(--sway-duration) ease-in-out infinite alternate;
+}
+
+/* =========================================
+   HIỆU ỨNG SCROLL REVEAL (TRƯỢT MỞ KHI CUỘN)
+   ========================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px); /* Tụt xuống 40px */
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-100 { transition-delay: 100ms; }
+.reveal-delay-200 { transition-delay: 200ms; }
+.reveal-delay-300 { transition-delay: 300ms; }
